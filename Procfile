@@ -1,1 +1,1 @@
-web: gunicorn app:app
+web: gunicorn food_delivery:create_app()
