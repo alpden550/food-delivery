@@ -1,6 +1,6 @@
 from flask import Flask
 
-from food_delivery.extensions import db, migrate
+from food_delivery.extensions import db, migrate, toolbar
 from food_delivery.models import User  # noqa:F401
 from food_delivery.settings import Config
 
@@ -13,11 +13,12 @@ def create_app():
 
     @app.route('/')
     def index():
-        return 'Hello, Heroku!'
+        return '<body><h1>Hello, Heroku!</h1></body>'
 
     return app
 
 
 def register_extensions(app):
     db.init_app(app)
+    toolbar.init_app(app)
     migrate.init_app(app, db)
