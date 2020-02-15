@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 
 from food_delivery.extensions import db, migrate
 from food_delivery.models import User  # noqa:F401
@@ -13,7 +13,7 @@ def create_app():
 
     @app.route('/')
     def index():
-        return 'Hello, Heroku!'
+        return render_template('account.html')
 
     return app
 

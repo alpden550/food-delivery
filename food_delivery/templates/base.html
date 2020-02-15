@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href={{ url_for("static", filename="css/bootstrap.min.css") }}>
+</head>
+{% include "nav.html" %}
+<body>
+    {% block container %}{% endblock %}
+    <footer class="container mt-3">
+        <nav class="mt-5 navbar navbar-light bg-light">
+            <ul class="navbar-nav mr-auto">
+                <p class="h4 nav-link">Stepik Delivery</p>
+            </ul>
+            <a class="text-muted" href="#">Project author 2020</a>
+        </nav>
+    </footer>
+</body>
+</main>
