@@ -19,6 +19,28 @@ class User(db.Model):
         return f'<User {self.id} {self.username}>'
 
 
+class Category(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(20), unique=True, nullable=False)
+    meals = db.relationship('Meal', back_populates='category', lazy='joined')
+
+    def __repr__(self):
+        return f'<Category {self.title}>'
+
+
+class Meal(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(20), nullable=False)
+    description = db.Column(db.String(200))
+    picture = db.Column(db.String(100))
+    price = db.Column(db.Float())
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
+    category = db.relationship('Category', back_populates='meals', lazy='joined')
+
+    def __repr__(self):
+        return f'<Meal {self.title}>'
+
+
 @event.listens_for(User.password, 'set', retval=True)
 def hash_user_password(target, value, *args):  # noqa:WPS110
     return generate_password_hash(value)
