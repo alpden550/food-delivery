@@ -22,10 +22,11 @@ def create_meals(meal_data):
     category = Category.query.filter(
         Category.title == meal_data.get('category'),
     ).first()
+    meal_image = meal_data.get('picture')
     meal = Meal(
         title=meal_data.get('title'),
         description=meal_data.get('description'),
-        picture=meal_data.get('picture'),
+        picture=f'images/{meal_image}',
         price=meal_data.get('price'),
         category=category,
     )
