@@ -30,7 +30,7 @@
           <div class="card-body d-flex flex-column">
             <h4 class="h5 card-title">{{ meal.title }}</h4>
             <p class="card-text">{{ meal.description }}</p>
-            <a href="" role="button" class="btn btn-danger mt-auto w-50">В корзину</a>
+            <a href="{{ url_for("main.add_to_cart", meal_id=meal.id) }}" role="button" class="btn btn-danger mt-auto w-50">В корзину</a>
           </div>
         </div>
       </div>

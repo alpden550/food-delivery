@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, flash, redirect, render_template, session
 
-from food_delivery.models import Category
+from food_delivery.models import Category, Meal
 
 main_bp = Blueprint('main', __name__)
 
@@ -21,3 +21,13 @@ def index():
         pasta=pasta.meals,
         new=new.meals,
     )
+
+
+@main_bp.route('/addtocart/<int:meal_id>')
+def add_to_cart(meal_id):
+    meal = Meal.query.get_or_404(meal_id)
+    cart = session.get('cart') or []
+    cart.append(meal_id)
+    session['cart'] = cart
+    flash(f'Добавили {meal.title} в корзину!')
+    return redirect('/')
