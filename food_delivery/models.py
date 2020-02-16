@@ -30,8 +30,8 @@ class Category(db.Model):
 
 class Meal(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(20), nullable=False)
-    description = db.Column(db.String(200))
+    title = db.Column(db.String(200), nullable=False)
+    description = db.Column(db.String(400))
     picture = db.Column(db.String(100))
     price = db.Column(db.Float())
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
