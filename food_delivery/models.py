@@ -43,7 +43,7 @@ class Meal(db.Model):
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     category = db.relationship('Category', back_populates='meals', lazy='joined')
     orders = db.relationship(
-        'Order', secondary='orders_meals', back_populates='meals', lazy='joined'
+        'Order', secondary='orders_meals', back_populates='meals', lazy='joined',
     )
 
     def __repr__(self):
@@ -65,7 +65,7 @@ class Order(db.Model):
     client_email = db.Column(EmailType, nullable=False)
     client_phone = db.Column(db.String)
     meals = db.relationship(
-        'Meal', secondary='orders_meals', back_populates='orders', lazy='joined'
+        'Meal', secondary='orders_meals', back_populates='orders', lazy='joined',
     )
 
 
