@@ -3,7 +3,7 @@ from flask import Flask
 
 from food_delivery.blueprints.main import main_bp
 from food_delivery.db_utils import fill_db
-from food_delivery.extensions import db, migrate, toolbar
+from food_delivery.extensions import csrf, db, migrate, toolbar
 from food_delivery.models import User  # noqa:F401
 from food_delivery.settings import Config
 
@@ -23,6 +23,7 @@ def register_extensions(app):
     db.init_app(app)
     toolbar.init_app(app)
     migrate.init_app(app, db, compare_type=True)
+    csrf.init_app(app)
 
 
 def register_blueprints(app):

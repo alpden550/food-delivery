@@ -1,8 +1,18 @@
 from random import sample
 
-from flask import Blueprint, flash, redirect, render_template, session, url_for
+from flask import (
+    Blueprint,
+    flash,
+    redirect,
+    render_template,
+    request,
+    session,
+    url_for,
+)
 
-from food_delivery.models import Category, Meal
+from food_delivery.form import OrderForm
+from food_delivery.models import Category, Meal, Order
+from food_delivery.extensions import db
 
 main_bp = Blueprint('main', __name__)
 
@@ -34,7 +44,7 @@ def index():
     )
 
 
-@main_bp.route('/cart/')
+@main_bp.route('/cart/', methods=('GET', 'POST'))
 def cart():
     if session.get('cart') is not None:
         cart_items = set(session.get('cart'))
@@ -43,11 +53,28 @@ def cart():
 
     else:
         cart_items, cart_amount, meals = [], 0, []
+
+    form = OrderForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        order = Order(
+            client_name=form.name.data,
+            client_address=form.address.data,
+            client_email=form.email.data,
+            client_phone=form.phone.data,
+            amount=cart_amount,
+        )
+        order.meals.extend(meals)
+        db.session.add(order)
+        db.session.commit()
+        session.pop('cart')
+        flash(f'Спасибо, Ваш заказ оформлен', 'primary')
+        return redirect(url_for('main.index'))
     return render_template(
         'cart.html',
         cart_items=cart_items,
         cart_amount=cart_amount,
         meals=meals,
+        form=form,
     )
 
 
