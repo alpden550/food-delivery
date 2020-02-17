@@ -1,3 +1,5 @@
+from random import sample
+
 from flask import Blueprint, flash, redirect, render_template, session
 
 from food_delivery.models import Category, Meal
@@ -20,11 +22,11 @@ def index():
         cart_amount = sum((int(meals.get(meal).price) for meal in cart_items))
     return render_template(
         'main.html',
-        sushi=sushi.meals,
-        streetfood=streetfood.meals,
-        pizza=pizza.meals,
-        pasta=pasta.meals,
-        new=new.meals,
+        sushi=sample(sushi.meals, 3),
+        streetfood=sample(streetfood.meals, 3),
+        pizza=sample(pizza.meals, 3),
+        pasta=sample(pasta.meals, 3),
+        new=sample(new.meals, 3),
         cart_items=cart_items,
         cart_amount=cart_amount,
     )
