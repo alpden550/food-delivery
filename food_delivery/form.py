@@ -1,6 +1,6 @@
 import phonenumbers
 from flask_wtf import FlaskForm
-from wtforms import StringField
+from wtforms import BooleanField, PasswordField, StringField, SubmitField
 from wtforms.fields.html5 import EmailField, TelField
 from wtforms.validators import ValidationError
 
@@ -19,3 +19,10 @@ class OrderForm(FlaskForm):
     address = StringField(label='Адрес')
     email = EmailField(label='Электропочта')
     phone = TelField('Телефон', validators=[validate_phone])
+
+
+class LoginForm(FlaskForm):
+    email = EmailField(label='')
+    password = PasswordField(label='')
+    remembered = BooleanField(label='Запомнить меня! ')
+    submit = SubmitField(label='Войти')

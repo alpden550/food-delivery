@@ -95,3 +95,8 @@ def delete_from_cart(meal_id):
     session.get('cart').remove(meal_id)
     flash(f'Удалили {meal.title} из корзины!', 'warning')
     return redirect(url_for('main.cart'))
+
+
+@main_bp.route('/account')
+def account():
+    return render_template('account.html')
