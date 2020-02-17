@@ -13,6 +13,7 @@ from flask import (
 from food_delivery.form import OrderForm
 from food_delivery.models import Category, Meal, Order
 from food_delivery.extensions import db
+from flask_login import current_user
 
 main_bp = Blueprint('main', __name__)
 
@@ -67,8 +68,7 @@ def cart():
         db.session.add(order)
         db.session.commit()
         session.pop('cart')
-        flash(f'Спасибо, Ваш заказ оформлен', 'primary')
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main.ordered'))
     return render_template(
         'cart.html',
         cart_items=cart_items,
@@ -100,3 +100,9 @@ def delete_from_cart(meal_id):
 @main_bp.route('/account')
 def account():
     return render_template('account.html')
+
+
+@main_bp.route('/ordered')
+def ordered():
+    print(current_user)
+    return render_template('ordered.html')
