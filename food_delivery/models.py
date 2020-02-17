@@ -1,8 +1,9 @@
+from flask_login import UserMixin
 from sqlalchemy import event
 from sqlalchemy_utils import ChoiceType, EmailType, PhoneNumber
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from food_delivery.extensions import db
+from food_delivery.extensions import db, login
 
 orders_meals = db.Table(
     'orders_meals',
@@ -11,7 +12,7 @@ orders_meals = db.Table(
 )
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(EmailType, unique=True, nullable=False)
@@ -77,3 +78,8 @@ def hash_user_password(target, value, *args):  # noqa:WPS110
 @event.listens_for(Order.client_phone, 'set', retval=True)
 def format_phone(turget, number, *args):
     return PhoneNumber(number, region='RU').international
+
+
+@login.user_loader
+def load_user(uid):
+    return User.query.get(int(uid))
