@@ -5,14 +5,14 @@ from food_delivery.models import Category, Meal
 main_bp = Blueprint('main', __name__)
 
 
-@main_bp.route('/')
+@main_bp.route('/')  # noqa:R701
 def index():
-    all_meals = Category.query.join(Category.meals)
-    sushi = all_meals.filter(Category.title == 'sushi').first()
-    pasta = all_meals.filter(Category.title == 'pasta').first()
-    streetfood = all_meals.filter(Category.title == 'streetfood').first()
-    pizza = all_meals.filter(Category.title == 'pizza').first()
-    new = all_meals.filter(Category.title == 'new').first()
+    all_meals = Category.query.join(Category.meals).all()
+    sushi = [category for category in all_meals if category.title == 'sushi'][0]
+    pasta = [category for category in all_meals if category.title == 'pasta'][0]
+    streetfood = [category for category in all_meals if category.title == 'streetfood'][0]
+    pizza = [category for category in all_meals if category.title == 'pizza'][0]
+    new = [category for category in all_meals if category.title == 'new'][0]
     return render_template(
         'main.html',
         sushi=sushi.meals,
