@@ -39,7 +39,7 @@ class Meal(db.Model):
     title = db.Column(db.String(200), nullable=False)
     description = db.Column(db.String(400))
     picture = db.Column(db.String(100))
-    price = db.Column(db.Float())
+    price = db.Column(db.Integer)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     category = db.relationship('Category', back_populates='meals', lazy='joined')
     orders = db.relationship(
