@@ -99,10 +99,10 @@ def delete_from_cart(meal_id):
 
 @main_bp.route('/account')
 def account():
-    return render_template('account.html')
+    orders = Order.query.filter_by(client_email=current_user.email).all()
+    return render_template('account.html', orders=orders)
 
 
 @main_bp.route('/ordered')
 def ordered():
-    print(current_user)
     return render_template('ordered.html')

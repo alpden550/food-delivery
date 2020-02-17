@@ -4,7 +4,7 @@ from flask import Flask
 from food_delivery.blueprints.auth import auth_bp
 from food_delivery.blueprints.main import main_bp
 from food_delivery.db_utils import fill_db
-from food_delivery.extensions import csrf, db, migrate, toolbar, login
+from food_delivery.extensions import csrf, db, login, migrate, toolbar
 from food_delivery.models import User  # noqa:F401
 from food_delivery.settings import Config
 
@@ -16,6 +16,7 @@ def create_app():
     register_extensions(app)
     register_blueprints(app)
     register_commands(app)
+    register_template_filters(app)
 
     return app
 
@@ -45,3 +46,9 @@ def register_commands(app):
     def fill():
         """Add categories and meals."""
         fill_db()
+
+
+def register_template_filters(app):
+    @app.template_filter('datetimeformat')
+    def datetimeformat(date):
+        return date.strftime('%d-%m-%Y')
