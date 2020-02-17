@@ -22,10 +22,10 @@
       <div class="col-12 col-md-4">
         <div class="card mb-3 h-100">
           {% if meal.picture %}
-            <a href=""><img src="static/{{ meal.picture }}" class="card-img-top" alt="{{ meal.title }}"></a>
+            <img src="static/{{ meal.picture }}" class="card-img-top" alt="{{ meal.title }}">
           {% else %}
-          <a href=""><img src=https://place-hold.it/300x200 width="300" height="200" class="card-img-top"
-              alt="{{ meal.title }}"></a>
+            <img src=https://place-hold.it/300x200 width="300" height="200" class="card-img-top"
+              alt="{{ meal.title }}">
           {% endif %}
           <div class="card-body d-flex flex-column">
             <h4 class="h5 card-title">{{ meal.title }}</h4>
@@ -45,15 +45,15 @@
       <div class="col-12 col-md-4">
         <div class="card mb-3 h-100">
           {% if meal.picture %}
-            <a href=""><img src="static/{{ meal.picture }}" class="card-img-top" alt="{{ meal.title }}"></a>
+              <img src="static/{{ meal.picture }}" class="card-img-top" alt="{{ meal.title }}">
           {% else %}
-          <a href=""><img src=https://place-hold.it/300x200 width="300" height="200" class="card-img-top"
-              alt="{{ meal.title }}"></a>
+            <img src=https://place-hold.it/300x200 width="300" height="200" class="card-img-top"
+              alt="{{ meal.title }}">
           {% endif %}
           <div class="card-body d-flex flex-column">
             <h4 class="h5 card-title">{{ meal.title }}</h4>
             <p class="card-text">{{ meal.description }}</p>
-            <a href="" role="button" class="btn btn-danger mt-auto w-50">В корзину</a>
+            <a href="{{ url_for("main.add_to_cart", meal_id=meal.id) }}" role="button" class="btn btn-danger mt-auto w-50">В корзину</a>
           </div>
         </div>
       </div>
@@ -68,15 +68,15 @@
       <div class="col-12 col-md-4">
         <div class="card mb-3 h-100">
           {% if meal.picture %}
-          <a href=""><img src="static/{{ meal.picture }}" class="card-img-top" alt="{{ meal.title }}"></a>
+            <img src="static/{{ meal.picture }}" class="card-img-top" alt="{{ meal.title }}">
           {% else %}
-          <a href=""><img src=https://place-hold.it/300x200 width="300" height="200" class="card-img-top"
-              alt="{{ meal.title }}"></a>
+            <img src=https://place-hold.it/300x200 width="300" height="200" class="card-img-top"
+              alt="{{ meal.title }}">
           {% endif %}
           <div class="card-body d-flex flex-column">
             <h4 class="h5 card-title">{{ meal.title }}</h4>
             <p class="card-text">{{ meal.description }}</p>
-            <a href="" role="button" class="btn btn-danger mt-auto w-50">В корзину</a>
+            <a href="{{ url_for("main.add_to_cart", meal_id=meal.id) }}" role="button" class="btn btn-danger mt-auto w-50">В корзину</a>
           </div>
         </div>
       </div>
@@ -91,15 +91,15 @@
       <div class="col-12 col-md-4">
         <div class="card mb-3 h-100">
           {% if meal.picture %}
-          <a href=""><img src="static/{{ meal.picture }}" class="card-img-top" alt="{{ meal.title }}"></a>
+            <img src="static/{{ meal.picture }}" class="card-img-top" alt="{{ meal.title }}">
           {% else %}
-          <a href=""><img src=https://place-hold.it/300x200 width="300" height="200" class="card-img-top"
-              alt="{{ meal.title }}"></a>
+            <img src=https://place-hold.it/300x200 width="300" height="200" class="card-img-top"
+              alt="{{ meal.title }}">
           {% endif %}
           <div class="card-body d-flex flex-column">
             <h4 class="h5 card-title">{{ meal.title }}</h4>
             <p class="card-text">{{ meal.description }}</p>
-            <a href="" role="button" class="btn btn-danger mt-auto w-50">В корзину</a>
+            <a href="{{ url_for("main.add_to_cart", meal_id=meal.id) }}" role="button" class="btn btn-danger mt-auto w-50">В корзину</a>
           </div>
         </div>
       </div>
@@ -114,15 +114,15 @@
       <div class="col-12 col-md-4">
         <div class="card mb-3 h-100">
           {% if meal.picture %}
-          <a href=""><img src="static/{{ meal.picture }}" class="card-img-top" alt="{{ meal.title }}"></a>
+            <img src="static/{{ meal.picture }}" class="card-img-top" alt="{{ meal.title }}">
           {% else %}
-          <a href=""><img src=https://place-hold.it/300x200 width="300" height="200" class="card-img-top"
-              alt="{{ meal.title }}"></a>
+            <img src=https://place-hold.it/300x200 width="300" height="200" class="card-img-top"
+              alt="{{ meal.title }}">
           {% endif %}
           <div class="card-body d-flex flex-column">
             <h4 class="h5 card-title">{{ meal.title }}</h4>
             <p class="card-text">{{ meal.description }}</p>
-            <a href="" role="button" class="btn btn-danger mt-auto w-50">В корзину</a>
+            <a href="{{ url_for("main.add_to_cart", meal_id=meal.id) }}" role="button" class="btn btn-danger mt-auto w-50">В корзину</a>
           </div>
         </div>
       </div>

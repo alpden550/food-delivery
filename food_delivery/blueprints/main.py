@@ -7,12 +7,17 @@ main_bp = Blueprint('main', __name__)
 
 @main_bp.route('/')  # noqa:R701
 def index():
-    all_meals = Category.query.join(Category.meals).all()
-    sushi = [category for category in all_meals if category.title == 'sushi'][0]
-    pasta = [category for category in all_meals if category.title == 'pasta'][0]
-    streetfood = [category for category in all_meals if category.title == 'streetfood'][0]
-    pizza = [category for category in all_meals if category.title == 'pizza'][0]
-    new = [category for category in all_meals if category.title == 'new'][0]
+    categories = Category.query.join(Category.meals).all()
+    sushi = [category for category in categories if category.title == 'sushi'][0]
+    pasta = [category for category in categories if category.title == 'pasta'][0]
+    streetfood = [category for category in categories if category.title == 'streetfood'][0]
+    pizza = [category for category in categories if category.title == 'pizza'][0]
+    new = [category for category in categories if category.title == 'new'][0]
+
+    meals = Meal.query
+    if session.get('cart') is not None:
+        cart_items = set(session.get('cart'))
+        cart_amount = sum((int(meals.get(meal).price) for meal in cart_items))
     return render_template(
         'main.html',
         sushi=sushi.meals,
@@ -20,6 +25,8 @@ def index():
         pizza=pizza.meals,
         pasta=pasta.meals,
         new=new.meals,
+        cart_items=cart_items,
+        cart_amount=cart_amount,
     )
 
 
