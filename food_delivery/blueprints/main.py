@@ -25,6 +25,7 @@ def index():
 
 @main_bp.route('/addtocart/<int:meal_id>')
 def add_to_cart(meal_id):
+    session.permanent = True
     meal = Meal.query.get_or_404(meal_id)
     cart = session.get('cart') or []
     cart.append(meal_id)
