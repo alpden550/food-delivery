@@ -32,6 +32,8 @@ def register_extensions(app):
     login.init_app(app)
     admin.init_app(app)
 
+    # TODO: Add sending mail
+
 
 def register_blueprints(app):
     app.register_blueprint(main_bp)

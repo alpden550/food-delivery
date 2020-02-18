@@ -25,4 +25,9 @@ def login():
 @auth_bp.route('/logout')
 def logout():
     logout_user()
+    flash('Разлогинили!', 'info')
     return redirect(url_for('main.index'))
+
+# TODO: Add registration
+
+# TODO: Add reset password
