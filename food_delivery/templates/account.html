@@ -11,7 +11,7 @@
         {% if order.status.code == 'NEW' %}
             {% set badge = "badge-info" %} {% set badge_text = "Новый" %}
         {% elif order.status.code == 'DELIVERING' %}
-            {% set badge = "badge-primary" %} 
+            {% set badge = "badge-primary" %} {% set badge_text = "Выполняется" %}
         {% else %}
             {% set badge = "badge-success" %} {% set badge_text = "Готово" %}
         {% endif %}
@@ -21,7 +21,7 @@
               <div class="row">
                 <div class="col-7 col-lg-9">
                   <span class="h5 font-weight-bold">{{ order.created_at|datetimeformat }}</span>
-                  <span class="h5">- 1240 P</span>
+                  <span class="h5">- {{ order.amount }} P</span>
                 </div>
                 <div class="col-3 col-lg-2 ml-5 py-2 badge {{ badge }} text-wrap">{{ badge_text }}</div>
               </div>

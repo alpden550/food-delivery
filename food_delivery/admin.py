@@ -26,6 +26,39 @@ class UserView(Forbidden, ModelView):
     edit_modal = True
 
 
+class CategoryView(Forbidden, ModelView):
+    column_editable_list = ('title',)
+    column_labels = {
+        'title': 'Категория',
+        'meals': 'Блюда',
+    }
+
+
+class MealView(Forbidden, ModelView):
+    column_editable_list = ('title', 'price')
+    column_labels = {
+        'title': 'Название',
+        'description': 'Описание',
+        'picture': 'Изображение',
+        'price': 'Цена',
+        'category': 'Категория',
+        'orders': 'Заказы',
+    }
+
+
+class OrderView(Forbidden, ModelView):
+    column_labels = {
+        'created_at': 'Дата создания',
+        'amount': 'Сумма заказа',
+        'status': 'Статус заказа',
+        'client_name': 'Клиент',
+        'client_address': 'Адрес',
+        'client_email': 'Почта',
+        'client_phone': 'Телефон',
+        'meals': 'Блюда в заказе',
+    }
+
+
 class AdminDashboard(Forbidden, AdminIndexView):
 
     @expose('/')

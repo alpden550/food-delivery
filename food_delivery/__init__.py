@@ -2,12 +2,12 @@ import click
 from flask import Flask
 from flask_admin.menu import MenuLink
 
-from food_delivery.admin import UserView
+from food_delivery.admin import UserView, CategoryView, MealView, OrderView
 from food_delivery.blueprints.auth import auth_bp
 from food_delivery.blueprints.main import main_bp
 from food_delivery.db_utils import fill_db
 from food_delivery.extensions import admin, csrf, db, login, migrate, toolbar
-from food_delivery.models import User
+from food_delivery.models import User, Category, Meal, Order
 from food_delivery.settings import Config
 
 
@@ -39,8 +39,11 @@ def register_blueprints(app):
 
 
 def register_admins():
-    admin.add_view(UserView(User, db.session, name='Пользователи'))
     admin.add_link(MenuLink(name='Вернуться на сайт', url='/'))
+    admin.add_view(UserView(User, db.session, name='Пользователи'))
+    admin.add_view(CategoryView(Category, db.session, name='Категории блюд'))
+    admin.add_view(MealView(Meal, db.session, name='Блюда'))
+    admin.add_view(OrderView(Order, db.session, name='Заказы'))
 
 
 def register_commands(app):
