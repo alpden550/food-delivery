@@ -470,6 +470,22 @@ dotenv = ["python-dotenv"]
 
 [[package]]
 category = "main"
+description = "Simple and extensible admin interface framework for Flask"
+name = "flask-admin"
+optional = false
+python-versions = "*"
+version = "1.5.5"
+
+[package.dependencies]
+Flask = ">=0.7"
+wtforms = "*"
+
+[package.extras]
+aws = ["boto"]
+azure = ["azure-storage-blob"]
+
+[[package]]
+category = "main"
 description = "A toolbar overlay for debugging Flask applications."
 name = "flask-debugtoolbar"
 optional = false
@@ -1235,7 +1251,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools"]
 
 [metadata]
-content-hash = "9483ed91b0d20b34cc426e33e13ccf6520663557b544721bd8ef6f2ee8ba87ac"
+content-hash = "e54af3596ebceda02c4e49b5c11d4b92b4acbabf8873e7550115d09aee7875df"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -1390,6 +1406,10 @@ flake8-string-format = [
 flask = [
     {file = "Flask-1.1.1-py2.py3-none-any.whl", hash = "sha256:45eb5a6fd193d6cf7e0cf5d8a5b31f83d5faae0293695626f539a823e93b13f6"},
     {file = "Flask-1.1.1.tar.gz", hash = "sha256:13f9f196f330c7c2c5d7a5cf91af894110ca0215ac051b5844701f2bfd934d52"},
+]
+flask-admin = [
+    {file = "Flask-Admin-1.5.5.tar.gz", hash = "sha256:ff8270de5e8916541d19a0b03e469e2f8bbd22e4952c17aebc605112976f2fc4"},
+    {file = "Flask_Admin-1.5.5-py3-none-any.whl", hash = "sha256:aeebf87b5d5fd18525c876e0ecd71e0d0837614610122be235375c411b2d59dc"},
 ]
 flask-debugtoolbar = [
     {file = "Flask-DebugToolbar-0.10.1.tar.gz", hash = "sha256:ec810083123aae0632eb32ba11e1cb4cdace81e7ce6c5009dd06c5204afbce52"},
