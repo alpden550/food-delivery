@@ -14,7 +14,16 @@
             {% if current_user.is_anonymous %}
                 <a href="{{ url_for("auth.login") }}" class="my-2 ml-3 text-white text-decoration-none">Войти</a>
             {% else %}
-                <a href="{{ url_for("main.account") }}" class="my-2 ml-3 text-white text-decoration-none">ЛК</a>
+                <div class="dropdown">
+                  <a class="my-2 ml-3 text-white text-decoration-none dropdown-toggle" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Профиль
+                  </a>
+                
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="{{ url_for("main.account") }}">Личный кабинет</a>
+                    <a class="dropdown-item" href="{{ url_for("auth.logout") }}">Разлогиниться</a>
+                  </div>
+                </div>
             {% endif %}
             
           </p>
