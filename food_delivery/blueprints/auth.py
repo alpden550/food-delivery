@@ -18,7 +18,7 @@ def login():
             flash('Неверное имя пользователя или пароль', 'danger')
             return redirect(url_for('auth.login'))
         login_user(user, remember=form.remembered.data)
-        return redirect(url_for('main.account'))
+        return redirect(url_for('main.index'))
     return render_template('auth.html', form=form)
 
 

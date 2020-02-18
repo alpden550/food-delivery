@@ -13,7 +13,7 @@ from flask import (
 from food_delivery.form import OrderForm
 from food_delivery.models import Category, Meal, Order
 from food_delivery.extensions import db
-from flask_login import current_user
+from flask_login import current_user, login_required
 
 main_bp = Blueprint('main', __name__)
 
@@ -98,6 +98,7 @@ def delete_from_cart(meal_id):
 
 
 @main_bp.route('/account')
+@login_required
 def account():
     orders = Order.query.filter_by(client_email=current_user.email).all()
     return render_template('account.html', orders=orders)
