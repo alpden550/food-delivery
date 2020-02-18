@@ -8,7 +8,7 @@
       <p class="my-2 text-white bg-dark ">
         <a href="{{ url_for("main.cart") }}" class="my-2 text-white text-decoration-none">Корзина</a>
           {% if cart_items %}
-            ({{ cart_items|length }} бл. {{ cart_amount }} руб.)
+            ({{ cart_items|length }} на {{ cart_amount }} руб.)
           {% endif %}
 
             {% if current_user.is_anonymous %}
