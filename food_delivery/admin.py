@@ -1,4 +1,4 @@
-from flask import flash, redirect, request, url_for
+from flask import flash, redirect, url_for
 from flask_admin import AdminIndexView, expose
 from flask_admin.contrib.sqla import ModelView
 from flask_login import current_user
