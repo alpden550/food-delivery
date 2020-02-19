@@ -31,6 +31,11 @@
           </div>
           <div class="checkbox mb-3"></div>
           {{ form.submit(class="btn btn-lg btn-danger btn-block") }}
+          <div class="checkbox mt-3">
+            <p>
+              Еще нет аккаунта? <a href="{{ url_for("auth.registration") }}" class="text-decoration-none ml-3"">Регистрация</a>
+            </p>
+          </div>
         </form>
       </div>
     </div>
