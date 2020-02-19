@@ -1,7 +1,8 @@
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_user, logout_user
 
-from food_delivery.form import LoginForm
+from food_delivery.extensions import db
+from food_delivery.form import LoginForm, RegistrationForm
 from food_delivery.models import User
 
 auth_bp = Blueprint('auth', __name__)
@@ -28,6 +29,28 @@ def logout():
     flash('Разлогинили!', 'info')
     return redirect(url_for('main.index'))
 
-# TODO: Add registration
+
+@auth_bp.route('/registration/', methods=('GET', 'POST'))
+def registration():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+    form = RegistrationForm()
+
+    if request.method == 'POST' and form.validate_on_submit():
+        if User.query.filter_by(email=form.email.data).first():
+            flash('Пользователь с такой почтой уже существует.', 'danger')
+            return render_template('registration.html', form=form)
+
+        user = User(
+            username=form.username.data,
+            email=form.email.data,
+            password=form.password.data,
+        )
+        db.session.add(user)
+        db.session.commit()
+        flash('Успешно! Теперь можно зайти.', 'success')
+        return redirect(url_for('auth.login'))
+    return render_template('registration.html', form=form)
+
 
 # TODO: Add reset password
