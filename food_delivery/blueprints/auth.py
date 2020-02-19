@@ -1,5 +1,6 @@
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_user, logout_user
+from sqlalchemy import or_
 
 from food_delivery.extensions import db
 from food_delivery.form import LoginForm, RegistrationForm
@@ -37,8 +38,10 @@ def registration():
     form = RegistrationForm()
 
     if request.method == 'POST' and form.validate_on_submit():
-        if User.query.filter_by(email=form.email.data).first():
-            flash('Пользователь с такой почтой уже существует.', 'danger')
+        if User.query.filter(  # noqa:WPS337
+            or_(User.email == form.email.data, User.username == form.username.data),
+        ).first():
+            flash('Такой пользователь уже существует.', 'danger')
             return render_template('registration.html', form=form)
 
         user = User(

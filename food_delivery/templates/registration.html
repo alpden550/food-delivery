@@ -18,7 +18,7 @@
                 <div class="mt-5 form-label-group">
                     <p class="text-muted">Юзернейм</p>
                     {{ form.username(class="form-control",required=required, autofocus=autofocus) }}
-                    <p class="text-muted mt-2 mb-3"><small>Имя пользователя должно содержать только латинские символы и цифры.</small></p>
+                    {{ form.username.label }}
                 </div>
                 <div class="form-label-group">
                     <p class="text-muted">Электропочта</p>
@@ -28,7 +28,7 @@
                 <div class="form-label-group">
                     <p class="text-muted"> Пароль</p>
                     {{ form.password(class="form-control", required=required) }}
-                    <p class="text-muted mt-2 mb-3"><small>Пароль должен содержать не менее 6 символов, включая цифры, спец символы и символы в верхнем регистре.</small></p>
+                    {{ form.password.label }}
                 </div>
                 <div class="form-label-group">
                     <p class="text-muted">Повторите пароль</p>
