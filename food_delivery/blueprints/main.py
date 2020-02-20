@@ -30,8 +30,7 @@ def index():
     return render_template(
         'main.html',
         categories=categories,
-        cart_items=cart.items,
-        cart_amount=cart.amount,
+        cart=cart,
     )
 
 
@@ -55,10 +54,9 @@ def cart():
         return redirect(url_for('main.ordered'))
     return render_template(
         'cart.html',
-        cart_items=cart.items,
-        cart_amount=cart.amount,
-        meals=cart.meals,
+        cart=cart,
         form=form,
+        meals=cart.meals,
     )
 
 
@@ -84,8 +82,13 @@ def delete_from_cart(meal_id):
 @main_bp.route('/account')
 @login_required
 def account():
+    cart = check_cart()
     orders = Order.query.filter_by(client_email=current_user.email).all()
-    return render_template('account.html', orders=orders)
+    return render_template(
+        'account.html',
+        orders=orders,
+        cart=cart,
+    )
 
 
 @main_bp.route('/ordered')

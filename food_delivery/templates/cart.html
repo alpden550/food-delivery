@@ -48,7 +48,7 @@
 
     <div class="col-1"></div>
     <div class="col-7">
-      <h4 class="mb-3 col-7 mb-5">{{ cart_items|length }} в корзине</h4>
+      <h4 class="mb-3 col-7 mb-5">{{ cart.items|length }} в корзине</h4>
       <table class="table">
         <tbody>
           {% for meal in meals %}
@@ -63,7 +63,7 @@
         </tbody>
       </table>
       <hr>
-      <p class="display-4 my-2 ">{{ cart_amount }} руб</p>
+      <p class="display-4 my-2 ">{{ cart.amount }} руб</p>
     </div>
   </div>
 </main>

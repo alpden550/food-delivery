@@ -30,7 +30,7 @@
           <div class="card-body d-flex flex-column">
             <h4 class="h5 card-title">{{ meal.title }}</h4>
             <p class="card-text">{{ meal.description }}</p>
-            {% if meal.id in cart_items %}{% set disabled = "disabled" %}{% endif %}
+            {% if meal.id in cart.items %}{% set disabled = "disabled" %}{% endif %}
             <a href="{{ url_for("main.add_to_cart", meal_id=meal.id) }}" role="button" class="btn btn-danger mt-auto w-50 {{ disabled }}">В корзину</a>
           </div>
         </div>

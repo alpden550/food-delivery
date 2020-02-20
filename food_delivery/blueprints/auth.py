@@ -24,7 +24,7 @@ def login():
             return redirect(url_for('auth.login'))
         login_user(user, remember=form.remembered.data)
         return redirect(url_for('main.index'))
-    return render_template('auth.html', form=form, cart_items=cart.items, cart_amount=cart.amount)
+    return render_template('auth.html', form=form, cart=cart)
 
 
 @auth_bp.route('/logout')
@@ -62,6 +62,5 @@ def registration():
     return render_template(
         'registration.html',
         form=form,
-        cart_items=cart.items,
-        cart_amount=cart.amount,
+        cart=cart,
     )
