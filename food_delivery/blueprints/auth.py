@@ -1,10 +1,10 @@
-from flask import (Blueprint, flash, redirect, render_template, request, session, url_for)
+from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_user, logout_user
 from sqlalchemy import or_
 
 from food_delivery.extensions import db
 from food_delivery.form import LoginForm, RegistrationForm
-from food_delivery.models import Meal, User
+from food_delivery.models import User
 from food_delivery.utils import check_cart
 
 auth_bp = Blueprint('auth', __name__)
