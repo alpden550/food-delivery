@@ -38,7 +38,7 @@
         <div class=" md-4 order-md-1">
           <div class="mt-3 mb-3">
             {{ form.phone.label }}
-            {{ form.phone(class="form-control", required=required) }}
+            {{ form.phone(class="form-control phone-mask", required=required) }}
           </div>
         </div>
           {% if not cart.amount %}{% set disabled = "disabled" %}{% endif %}
