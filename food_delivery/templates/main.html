@@ -18,7 +18,7 @@
   <section>
     <h3 class="my-4">Суши</h3>
     <div class="row mt-4">
-      {% for meal in sushi[:3] %}
+      {% for meal in categories.sushi %}
       <div class="col-12 col-md-4">
         <div class="card mb-3 h-100">
           {% if meal.picture %}
@@ -42,7 +42,7 @@
   <section>
     <h3 class="my-4">Стритфуд</h3>
     <div class="row mt-4">
-      {% for meal in streetfood[:3] %}
+      {% for meal in categories.streetfood %}
       <div class="col-12 col-md-4">
         <div class="card mb-3 h-100">
           {% if meal.picture %}
@@ -66,7 +66,7 @@
   <section>
     <h3 class="my-4">Пицца</h3>
     <div class="row mt-4">
-      {% for meal in pizza[:3] %}
+      {% for meal in categories.pizza %}
       <div class="col-12 col-md-4">
         <div class="card mb-3 h-100">
           {% if meal.picture %}
@@ -90,7 +90,7 @@
   <section>
     <h3 class="my-4">Паста</h3>
     <div class="row mt-4">
-      {% for meal in pasta[:3] %}
+      {% for meal in categories.pasta %}
       <div class="col-12 col-md-4">
         <div class="card mb-3 h-100">
           {% if meal.picture %}
@@ -114,7 +114,7 @@
   <section>
     <h3 class="my-4">Новинки</h3>
     <div class="row mt-4">
-      {% for meal in new[:3] %}
+      {% for meal in categories.new %}
       <div class="col-12 col-md-4">
         <div class="card mb-3 h-100">
           {% if meal.picture %}

@@ -18,14 +18,12 @@ from flask_login import current_user, login_required
 main_bp = Blueprint('main', __name__)
 
 
-@main_bp.route('/')  # noqa:R701
+@main_bp.route('/')
 def index():
-    categories = Category.query.join(Category.meals).all()
-    sushi = [category for category in categories if category.title == 'sushi'][0]
-    pasta = [category for category in categories if category.title == 'pasta'][0]
-    streetfood = [category for category in categories if category.title == 'streetfood'][0]
-    pizza = [category for category in categories if category.title == 'pizza'][0]
-    new = [category for category in categories if category.title == 'new'][0]
+    all_categories = Category.query.join(Category.meals).all()
+    categories = {}
+    for category in all_categories:
+        categories[category.title] = sample(category.meals, 3)
 
     meals = Meal.query
     if session.get('cart') is not None:
@@ -33,13 +31,10 @@ def index():
         cart_amount = sum(meals.get(meal).price for meal in cart_items)
     else:
         cart_items, cart_amount = [], 0
+
     return render_template(
         'main.html',
-        sushi=sample(sushi.meals, 3),
-        streetfood=sample(streetfood.meals, 3),
-        pizza=sample(pizza.meals, 3),
-        pasta=sample(pasta.meals, 3),
-        new=sample(new.meals, 3),
+        categories=categories,
         cart_items=cart_items,
         cart_amount=cart_amount,
     )

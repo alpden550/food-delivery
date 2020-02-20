@@ -10,13 +10,13 @@ class OrderForm(FlaskForm):
     name = StringField(label='Ваше имя')
     address = StringField(label='Адрес')
     email = EmailField(
-        label='Электропочта', validators=[Email(message='Неверный адрес  почты.')],
+        label='Электропочта', validators=[Email(message='Неверный адрес почты.')],
     )
     phone = TelField('Телефон', validators=[validate_phone])
 
 
 class LoginForm(FlaskForm):
-    email = EmailField(label='', validators=[Email(message='Неверный адрес  почты.')])
+    email = EmailField(label='', validators=[Email(message='Неверный адрес почты.')])
     password = PasswordField(label='')
     remembered = BooleanField(label='Запомнить меня! ')
     submit = SubmitField(label='Войти')
@@ -39,7 +39,7 @@ class RegistrationForm(FlaskForm):
             'title': 'Имя пользователя должно содержать только латинские символы и цифры.',
         },
     )
-    email = EmailField(label='', validators=[Email(message='Неверный адрес  почты.')])
+    email = EmailField(label='', validators=[Email(message='Неверный адрес почты.')])
     password = PasswordField(
         label='',
         validators=[
