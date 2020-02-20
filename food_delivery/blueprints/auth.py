@@ -27,7 +27,7 @@ def login():
     return render_template('auth.html', form=form, cart=cart)
 
 
-@auth_bp.route('/logout')
+@auth_bp.route('/logout/')
 def logout():
     logout_user()
     flash('Разлогинили!', 'info')
