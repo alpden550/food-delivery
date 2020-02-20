@@ -5,7 +5,7 @@ from flask_admin.menu import MenuLink
 from food_delivery.admin import UserView, CategoryView, MealView, OrderView
 from food_delivery.blueprints.auth import auth_bp
 from food_delivery.blueprints.main import main_bp
-from food_delivery.db_utils import fill_db
+from food_delivery.utils import fill_db
 from food_delivery.extensions import admin, csrf, db, login, migrate, toolbar
 from food_delivery.models import User, Category, Meal, Order
 from food_delivery.settings import Config
@@ -31,8 +31,6 @@ def register_extensions(app):
     csrf.init_app(app)
     login.init_app(app)
     admin.init_app(app)
-
-    # TODO: Add sending mail
 
 
 def register_blueprints(app):

@@ -1,16 +1,19 @@
-from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask import (Blueprint, flash, redirect, render_template, request, session, url_for)
 from flask_login import current_user, login_user, logout_user
 from sqlalchemy import or_
 
 from food_delivery.extensions import db
 from food_delivery.form import LoginForm, RegistrationForm
-from food_delivery.models import User
+from food_delivery.models import Meal, User
+from food_delivery.utils import check_cart
 
 auth_bp = Blueprint('auth', __name__)
 
 
 @auth_bp.route('/login/', methods=('GET', 'POST'))
 def login():
+    cart = check_cart()
+
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
     form = LoginForm()
@@ -21,7 +24,7 @@ def login():
             return redirect(url_for('auth.login'))
         login_user(user, remember=form.remembered.data)
         return redirect(url_for('main.index'))
-    return render_template('auth.html', form=form)
+    return render_template('auth.html', form=form, cart_items=cart.items, cart_amount=cart.amount)
 
 
 @auth_bp.route('/logout')
@@ -33,6 +36,8 @@ def logout():
 
 @auth_bp.route('/registration/', methods=('GET', 'POST'))
 def registration():
+    cart = check_cart()
+
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
     form = RegistrationForm()
@@ -53,7 +58,10 @@ def registration():
         db.session.commit()
         flash('Успешно! Теперь можно зайти.', 'success')
         return redirect(url_for('auth.login'))
-    return render_template('registration.html', form=form)
 
-
-# TODO: Add reset password
+    return render_template(
+        'registration.html',
+        form=form,
+        cart_items=cart.items,
+        cart_amount=cart.amount,
+    )

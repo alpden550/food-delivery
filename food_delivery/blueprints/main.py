@@ -9,46 +9,35 @@ from flask import (
     session,
     url_for,
 )
+from flask_login import current_user, login_required
 
+from food_delivery.extensions import db
 from food_delivery.form import OrderForm
 from food_delivery.models import Category, Meal, Order
-from food_delivery.extensions import db
-from flask_login import current_user, login_required
+from food_delivery.utils import check_cart
 
 main_bp = Blueprint('main', __name__)
 
 
 @main_bp.route('/')
 def index():
-    all_categories = Category.query.join(Category.meals).all()
     categories = {}
-    for category in all_categories:
+    for category in Category.query:
         categories[category.title] = sample(category.meals, 3)
 
-    meals = Meal.query
-    if session.get('cart') is not None:
-        cart_items = set(session.get('cart'))
-        cart_amount = sum(meals.get(meal).price for meal in cart_items)
-    else:
-        cart_items, cart_amount = [], 0
+    cart = check_cart()
 
     return render_template(
         'main.html',
         categories=categories,
-        cart_items=cart_items,
-        cart_amount=cart_amount,
+        cart_items=cart.items,
+        cart_amount=cart.amount,
     )
 
 
 @main_bp.route('/cart/', methods=('GET', 'POST'))
 def cart():
-    if session.get('cart') is not None:
-        cart_items = set(session.get('cart'))
-        meals = Meal.query.filter(Meal.id.in_(cart_items)).all()
-        cart_amount = sum(meal.price for meal in meals)
-
-    else:
-        cart_items, cart_amount, meals = [], 0, []
+    cart = check_cart()
 
     form = OrderForm()
     if request.method == 'POST' and form.validate_on_submit():
@@ -57,18 +46,18 @@ def cart():
             client_address=form.address.data,
             client_email=form.email.data,
             client_phone=form.phone.data,
-            amount=cart_amount,
+            amount=cart.amount,
         )
-        order.meals.extend(meals)
+        order.meals.extend(cart.meals)
         db.session.add(order)
         db.session.commit()
         session.pop('cart')
         return redirect(url_for('main.ordered'))
     return render_template(
         'cart.html',
-        cart_items=cart_items,
-        cart_amount=cart_amount,
-        meals=meals,
+        cart_items=cart.items,
+        cart_amount=cart.amount,
+        meals=cart.meals,
         form=form,
     )
 

@@ -1,10 +1,14 @@
 import csv
+from collections import namedtuple
 
 import click
+from flask import session
 from sqlalchemy.exc import IntegrityError
 
 from food_delivery.extensions import db
 from food_delivery.models import Category, Meal
+
+Cart = namedtuple('Cart', ['items', 'meals', 'amount'])
 
 
 def create_categories(name):
@@ -51,6 +55,15 @@ def fill_db(meal_csv='meals.csv'):
         create_categories(category)
     for meal_data in meals:
         create_meals(meal_data)
+
+
+def check_cart():
+    if session.get('cart') is None:
+        return Cart([], [], 0)
+    cart_items = set(session.get('cart'))
+    cart_meals = Meal.query.filter(Meal.id.in_(cart_items)).all()
+    cart_amount = sum(meal.price for meal in cart_meals)
+    return Cart(cart_items, cart_meals, cart_amount)
 
 
 if __name__ == '__main__':
