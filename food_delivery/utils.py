@@ -58,7 +58,7 @@ def fill_db(meal_csv='meals.csv'):
 
 
 def check_cart():
-    if session.get('cart') is None:
+    if not session.get('cart'):
         return Cart([], [], 0)
     cart_items = set(session.get('cart'))
     cart_meals = Meal.query.filter(Meal.id.in_(cart_items)).all()
