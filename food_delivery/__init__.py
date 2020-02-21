@@ -1,19 +1,24 @@
+import os
+
 import click
 from flask import Flask
 from flask_admin.menu import MenuLink
 
-from food_delivery.admin import UserView, CategoryView, MealView, OrderView
+from food_delivery.admin import CategoryView, MealView, OrderView, UserView
 from food_delivery.blueprints.auth import auth_bp
 from food_delivery.blueprints.main import main_bp
-from food_delivery.utils import fill_db
 from food_delivery.extensions import admin, csrf, db, login, migrate, toolbar
-from food_delivery.models import User, Category, Meal, Order
-from food_delivery.settings import Config
+from food_delivery.models import Category, Meal, Order, User
+from food_delivery.settings import config
+from food_delivery.utils import fill_db
 
 
-def create_app():
+def create_app(config_name=None):
+    if config_name is None:
+        config_name = os.getenv('FLASK_CONFIG', 'production')
+
     app = Flask(__name__)
-    app.config.from_object(Config)
+    app.config.from_object(config[config_name])
 
     register_extensions(app)
     register_blueprints(app)
