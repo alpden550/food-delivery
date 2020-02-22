@@ -3,3 +3,8 @@ req:
 
 test:
 	pytest -s -v
+
+cov:
+	coverage run -m pytest
+	coverage report
+	coverage html
