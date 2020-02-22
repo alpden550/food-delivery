@@ -2,7 +2,7 @@ import phonenumbers
 from wtforms.validators import ValidationError
 
 
-def validate_phone(form, field):
+def validate_phone(form, field):  # pragma: no cover
     try:  # noqa:WPS229
         phone = phonenumbers.parse(field.data, 'RU')
         if not phonenumbers.is_valid_number(phone):
