@@ -4,6 +4,7 @@ branch = True
 omit =
     *tests*
     *venv*
+    *site-packages*
     */__init__.py
 
 
@@ -11,6 +12,7 @@ omit =
 omit =
     *tests*
     *venv*
+    *site-packages*
     food_delivery/utils.py
 
 # Regexes for lines to exclude from consideration
