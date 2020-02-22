@@ -3,7 +3,7 @@ python: 3.7
 
 env:
   global:
-    - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
+    - CC_TEST_REPORTER_ID=ff9b6b8a9ae767284a6c475f5c9d2a24447c45c53f5c9a8da55442895b6970b8
 
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
@@ -18,4 +18,4 @@ script:
   - make cov
 
 after_script:
-  - ./cc-test-reporter after-build -t coverage.py --exit-code $TRAVIS_TEST_RESULT
+  - ./cc-test-reporter after-build -t lcov --debug --exit-code $TRAVIS_TEST_RESULT
