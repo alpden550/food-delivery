@@ -4,7 +4,7 @@ from flask_login import current_user
 from sqlalchemy import or_
 
 from food_delivery.extensions import db
-from food_delivery.models import Meal, User
+from food_delivery.models import Meal, User, Order
 from tests.conftest import app
 
 
@@ -87,6 +87,7 @@ class TestMainRoutes:
             '/cart/',
             data=form,
         )
+
         assert response.location == 'http://localhost/ordered'
 
     def test_cart_sending_not_valid(self, client):
