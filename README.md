@@ -1,6 +1,6 @@
 # Food Delivery
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/8de202229b49d8404911/maintainability)](https://codeclimate.com/github/alpden550/food-delivery/maintainability) [![Build Status](https://travis-ci.org/alpden550/food-delivery.svg?branch=master)](https://travis-ci.org/alpden550/food-delivery) [![Coverage Status](https://coveralls.io/repos/github/alpden550/food-delivery/badge.svg?branch=master)](https://coveralls.io/github/alpden550/food-delivery?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/8de202229b49d8404911/maintainability)](https://codeclimate.com/github/alpden550/food-delivery/maintainability) [![Build Status](https://travis-ci.org/alpden550/food-delivery.svg?branch=master)](https://travis-ci.org/alpden550/food-delivery) [![Coverage Status](https://coveralls.io/repos/github/alpden550/food-delivery/badge.svg)](https://coveralls.io/github/alpden550/food-delivery)
 
 Flask app for meal delivery service. Include adminpanel too.
 
