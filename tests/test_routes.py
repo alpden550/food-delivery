@@ -4,6 +4,7 @@ from flask import session
 from food_delivery.extensions import db
 from food_delivery.models import Meal, User
 from tests.conftest import app
+from food_delivery.form import OrderForm
 
 
 @pytest.fixture
@@ -17,7 +18,7 @@ class TestMainRoutes:
     @classmethod
     def setup_class(cls):
         with app.app_context():
-            meal = Meal(title='Meal')
+            meal = Meal(title='Meal', price=100)
             db.session.add(meal)
             db.session.commit()
 
@@ -73,6 +74,25 @@ class TestMainRoutes:
         client.get('/')
         assert session.get('cart') is None
 
+    def test_cart_sending(self, client):
+        client.get('/addtocart/1')
+
+        form = dict(name='Имя', address='Some address', email='email@gmail.com', phone='89261234567')
+        response = client.post(
+            '/cart/',
+            data=form,
+        )
+        assert response.location == 'http://localhost/ordered'
+
+    def test_cart_sending_not_valid(self, client):
+        client.get('/addtocart/1')
+        form = dict(name='Имя', address='Some address', email='email@gmail.com', phone='123')
+        response = client.post(
+            '/cart/',
+            data=form,
+        )
+        assert response.location is None
+
 
 class TestAuthRoutes:
 
@@ -121,6 +141,11 @@ class TestAuthRoutes:
         assert response.location == 'http://localhost/admin/'
 
     def test_user_can_login(self, client):
-        client.post('/auth/login/', data={'email': 'email', 'password': 'password'}, follow_redirects=True)
+        client.post(
+            '/auth/login/',
+            data={
+                'email': 'email',
+                'password': 'password'},
+            follow_redirects=True)
         response = client.get('/account')
         assert response.status_code == 200

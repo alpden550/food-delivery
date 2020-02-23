@@ -5,7 +5,7 @@ test:
 	pytest -s -v
 
 cov:
-	coverage run -m pytest
+	coverage run -m pytest -s -v
 	coverage report
 	coverage html
 	coverage xml

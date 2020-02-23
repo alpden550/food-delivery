@@ -4,7 +4,7 @@ import pytest
 from faker import Faker
 
 from food_delivery.extensions import db
-from food_delivery.models import Category, Meal, User, Order
+from food_delivery.models import Category, Meal, Order, User, format_phone
 from tests.conftest import app
 
 faker = Faker()
@@ -92,3 +92,9 @@ class TestModels:
     def test_user(self):
         with app.app_context():
             assert User.query.first()
+
+    def test_formatting_phone_number(self):
+        assert format_phone('target', '89261234567') == '+7 926 123-45-67'
+        assert format_phone('target', '79261234567') == '+7 926 123-45-67'
+        assert format_phone('target', '+79261234567') == '+7 926 123-45-67'
+        assert format_phone('target', '9261234567') == '+7 926 123-45-67'

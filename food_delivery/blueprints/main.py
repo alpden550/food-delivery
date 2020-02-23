@@ -22,7 +22,7 @@ main_bp = Blueprint('main', __name__)
 @main_bp.route('/')
 def index():
     categories = {}
-    for category in Category.query:
+    for category in Category.query:  # pragma: no cover
         categories[category.title] = sample(category.meals, 3)
 
     cart = check_cart()
