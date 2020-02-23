@@ -4,7 +4,7 @@ from flask_login import current_user
 from sqlalchemy import or_
 
 from food_delivery.extensions import db
-from food_delivery.models import Meal, User, Order
+from food_delivery.models import Category, Meal, Order, User
 from tests.conftest import app
 
 
@@ -19,8 +19,10 @@ class TestMainRoutes:
     @classmethod
     def setup_class(cls):
         with app.app_context():
-            meal = Meal(title='Meal', price=100)
+            meal = Meal(title='Meal Pozza', price=100)
+            category = Category(title='pizza')
             db.session.add(meal)
+            category.meals.append(meal)
             db.session.commit()
 
     @classmethod

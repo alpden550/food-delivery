@@ -22,8 +22,9 @@ main_bp = Blueprint('main', __name__)
 @main_bp.route('/')
 def index():
     categories = {}
-    for category in Category.query:  # pragma: no cover
-        categories[category.title] = sample(category.meals, 3)
+    for category in Category.query:
+        meals = sample(category.meals, 3) if len(category.meals) >= 3 else category.meals
+        categories[category.title] = meals
 
     cart = check_cart()
 
