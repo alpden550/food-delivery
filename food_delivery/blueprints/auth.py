@@ -47,7 +47,7 @@ def registration():
             or_(User.email == form.email.data, User.username == form.username.data),
         ).first():
             flash('Такой пользователь уже существует.', 'danger')
-            return render_template('registration.html', form=form)
+            return render_template('registration.html', form=form, cart=cart)
 
         user = User(
             username=form.username.data,

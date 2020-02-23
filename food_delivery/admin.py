@@ -6,7 +6,7 @@ from flask_login import current_user
 
 class Forbidden():
     def is_accessible(self):
-        if current_user.is_authenticated:
+        if current_user.is_authenticated:  # pragma: no cover
             return current_user.is_admin
 
     def inaccessible_callback(self, name, **kwargs):
@@ -61,6 +61,6 @@ class OrderView(Forbidden, ModelView):
 
 class AdminDashboard(Forbidden, AdminIndexView):
 
-    @expose('/')
+    @expose('/')  # pragma: no cover
     def index(self):
         return self.render('admin_dashboard.html')

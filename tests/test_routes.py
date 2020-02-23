@@ -1,10 +1,11 @@
 import pytest
 from flask import session
+from flask_login import current_user
+from sqlalchemy import or_
 
 from food_delivery.extensions import db
 from food_delivery.models import Meal, User
 from tests.conftest import app
-from food_delivery.form import OrderForm
 
 
 @pytest.fixture
@@ -77,7 +78,11 @@ class TestMainRoutes:
     def test_cart_sending(self, client):
         client.get('/addtocart/1')
 
-        form = dict(name='Имя', address='Some address', email='email@gmail.com', phone='89261234567')
+        form = dict(
+            name='Имя',
+            address='Some address',
+            email='email@gmail.com',
+            phone='89261234567')
         response = client.post(
             '/cart/',
             data=form,
@@ -140,7 +145,7 @@ class TestAuthRoutes:
         response = client.get('/admin')
         assert response.location == 'http://localhost/admin/'
 
-    def test_user_can_login(self, client):
+    def test_user_can_account(self, client):
         client.post(
             '/auth/login/',
             data={
@@ -149,3 +154,76 @@ class TestAuthRoutes:
             follow_redirects=True)
         response = client.get('/account')
         assert response.status_code == 200
+
+    def test_already_logined(self, client):
+        client.post(
+            '/auth/login/',
+            data={
+                'email': 'email',
+                'password': 'password'},
+            follow_redirects=True,
+        )
+        response = client.get('/auth/login/')
+        assert current_user.is_authenticated
+        assert response.location == 'http://localhost/'
+
+    def test_login_user_wrong_name(self, client):
+        form = dict(
+            email='email@gmail.com',
+            password='password',
+        )
+        response = client.post(
+            '/auth/login/',
+            data=form,
+        )
+        assert response.location == 'http://localhost/auth/login/'
+
+    def test_login_user_wrong_password(self, client):
+        form = dict(
+            email='email',
+            password='wrong_password',
+        )
+        response = client.post(
+            '/auth/login/',
+            data=form,
+        )
+        assert response.location == 'http://localhost/auth/login/'
+
+    def test_registration_user_is_loginned(self, client):
+        client.post(
+            '/auth/login/',
+            data={
+                'email': 'email',
+                'password': 'password'},
+            follow_redirects=True)
+        response = client.get('/auth/registration/')
+        assert current_user.is_authenticated
+        assert response.location == 'http://localhost/'
+
+    def test_user_can_register(self, client):
+        form = dict(
+            username='username',
+            email='email@gmail.com',
+            password='Superpassword1@',
+            password2='Superpassword1@',
+        )
+        response = client.post(
+            '/auth/registration/',
+            data=form,
+        )
+        assert response.location == 'http://localhost/auth/login/'
+
+    def test_user_registartion_already_exist(self, client):
+        form = dict(
+            username='admin',
+            email='email@me.com',
+            password='Superpassword1@',
+            password2='Superpassword1@',
+        )
+        response = client.post(
+            '/auth/registration/',
+            data=form,
+        )
+        with app.app_context():
+            user = User.query.filter(or_(User.email == form['email'], User.username == form['username'])).first()
+        assert user
