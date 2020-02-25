@@ -1,18 +1,13 @@
 # .coveragerc to control coverage.py
 [run]
 branch = True
-omit =
-    *tests*
-    *venv*
-    *site-packages*
-    */__init__.py
-
 
 [report]
 omit =
     *tests*
-    *venv*
+    *env*
     *site-packages*
+    */__init__.py
     food_delivery/utils.py
 
 # Regexes for lines to exclude from consideration

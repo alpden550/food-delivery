@@ -69,6 +69,9 @@ class Order(db.Model):
         'Meal', secondary='orders_meals', back_populates='orders', lazy='joined',
     )
 
+    def __repr__(self):
+        return f'<Order {self.id}>'
+
 
 @event.listens_for(User.password, 'set', retval=True)
 def hash_user_password(target, value, *args):  # noqa:WPS110
