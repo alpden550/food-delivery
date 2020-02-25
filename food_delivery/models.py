@@ -7,8 +7,8 @@ from food_delivery.extensions import db, login
 
 orders_meals = db.Table(
     'orders_meals',
-    db.Column('meal_id', db.Integer, db.ForeignKey('meal.id'), primary_key=True),
-    db.Column('order_id', db.Integer, db.ForeignKey('order.id'), primary_key=True),
+    db.Column('meal_id', db.Integer, db.ForeignKey('meal.id')),
+    db.Column('order_id', db.Integer, db.ForeignKey('order.id')),
 )
 
 
