@@ -30,7 +30,7 @@ def index():
 
     cart = check_cart()
 
-    return render_template('main.html', categories=categories, cart=cart,)
+    return render_template('main.html', categories=categories, cart=cart)
 
 
 @main_bp.route('/cart/', methods=('GET', 'POST'))
@@ -51,7 +51,7 @@ def cart():
         db.session.commit()
         session.pop('cart')
         return redirect(url_for('main.ordered'))
-    return render_template('cart.html', cart=cart, form=form, meals=cart.meals,)
+    return render_template('cart.html', cart=cart, form=form, meals=cart.meals)
 
 
 @main_bp.route('/addtocart/<int:meal_id>')
@@ -80,7 +80,7 @@ def account():
     orders = Order.query.filter_by(client_email=current_user.email).order_by(
         Order.created_at.desc(),
     )
-    return render_template('account.html', orders=orders, cart=cart,)
+    return render_template('account.html', orders=orders, cart=cart)
 
 
 @main_bp.route('/ordered')

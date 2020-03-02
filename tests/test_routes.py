@@ -28,8 +28,9 @@ class TestMainRoutes:
     @classmethod
     def teardown_class(cls):
         with app.app_context():
-            meal = Meal.query.first()
-            db.session.delete(meal)
+            db.session.query(Meal).delete()
+            db.session.query(Category).delete()
+            db.session.query(Order).delete()
             db.session.commit()
 
     def test_index_page(self, client):
